@@ -16,5 +16,15 @@ cd <frontend-folder>
 docker build -t chat-app-frontend .
 ```
 
+4. Run Docker container:
+```bash
+docker run -p 3000:3000 chat-app-frontend
+```
+
+5. Access frontend UI at:
+```bash
+http://localhost:3000
+```
+
 
 
