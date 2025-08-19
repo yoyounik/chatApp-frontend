@@ -25,6 +25,10 @@ docker run -p 3000:3000 chat-app-frontend
 ```bash
 http://localhost:3000
 ```
+How it will look like:
+<img width="1843" height="909" alt="image" src="https://github.com/user-attachments/assets/9110a2d1-1710-460e-8f63-d3eb6bf74874" />
+<img width="1600" height="901" alt="image" src="https://github.com/user-attachments/assets/a7b727b7-d9e7-4974-a869-13097ddd2bba" />
+
 
 
 
