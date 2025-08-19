@@ -124,7 +124,7 @@ function handleLogout() {
         {/* room name container */}
         <div>
             <h1 className="text-xl font-semibold">
-                <span>Room: Rooma ka naam</span>
+                Room : <span>{roomId}</span>
             </h1>
 
         </div>
