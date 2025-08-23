@@ -12,6 +12,8 @@ const JoinCreateChat = () => {
 
     const {roomId, userName, setRoomId, setCurrentUser, setConnected} = useChatContext();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+    const [loadingText, setLoadingText] = useState("");
 
     function handleFormInputChange(event) {
         setDetail({
@@ -30,6 +32,8 @@ const JoinCreateChat = () => {
 
     async function joinChat() {
         if(validateForm()) {
+            setIsLoading(true);
+            setLoadingText("Joining room... please wait for 2 mins 😊, using free version of Render(for backend), so it get shuts off after every 15mins");
             //join chat
             try {
                 const room = await joinChatAPI(detail.roomId);
@@ -48,11 +52,16 @@ const JoinCreateChat = () => {
                     toast.error("Error in joining room")
                 }
             }
+            finally {
+                setIsLoading(false);
+            }
         }
     }
 
     async function createRoom() {
         if(validateForm()) {
+            setIsLoading(true);           // Add this line
+            setLoadingText("Creating room...  please wait for 2 mins 😊, using free version of Render(for backend), so it get shuts off after every 15mins");
             //create room
             console.log(detail)
             //call api to create room on backend
@@ -77,6 +86,9 @@ const JoinCreateChat = () => {
                     toast("Error in creating room")
                 }
             }
+            finally{
+                setIsLoading(false);
+            }
         }
     }
 
@@ -90,8 +102,22 @@ const JoinCreateChat = () => {
             </div>
             
             <h1 className="text-2xl font-semibold text-center ">
-                Join Room / Create Room ..
+                {isLoading ? "Please wait....for 2 mins 😊, using Free Render, so it will take time" : "Join Room/ Create Room."}
             </h1>
+
+            {isLoading && (
+                <div className="text-center">
+                    <div className="flex justify-center mb-3">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    </div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {loadingText}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                        ⏱️ This may take 1-3 minutes on free tier
+                    </p>
+                </div>
+            )}
             
             {/* name div */}
             <div className="">
@@ -128,11 +154,11 @@ const JoinCreateChat = () => {
 
             {/* button */}
             <div className="flex justify-center gap-2 mt-4">
-                <button onClick={joinChat} className="px-3 py-2 dark:bg-blue-500 hover:dark:bg-blue-800 rounded-full">
+                <button onClick={joinChat} disabled={isLoading} className="px-3 py-2 dark:bg-blue-500 hover:dark:bg-blue-800 rounded-full">
                     Join Room
                 </button>
 
-                <button onClick={createRoom} className="px-3 py-2 dark:bg-orange-500 hover:dark:bg-orange-800 rounded-full">
+                <button onClick={createRoom} disabled={isLoading} className="px-3 py-2 dark:bg-orange-500 hover:dark:bg-orange-800 rounded-full">
                     Create Room
                 </button>
             </div>
